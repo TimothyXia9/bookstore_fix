@@ -21,7 +21,7 @@
                 <form class="login-form" method="post" action="{{ url('auth:login') }}" onsubmit="return encrypt()">
                     {{ csrf_input }}
                     {{ login_form }}
-                    <label for="remember">自动登录</label>
+                    
                     <img id='validate-img' class="pull-right" src="{{ url('auth:validate-code') }}" alt="验证码"/>
                     <input type="submit" class='btn btn-primary btn-block' value="登录"/>
                 </form>
