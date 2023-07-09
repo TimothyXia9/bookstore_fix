@@ -1,0 +1,6 @@
+django==2.0.2
+# DjangoUeditor
+# Crypto
+pycryptodome
+pillow
+jinja2

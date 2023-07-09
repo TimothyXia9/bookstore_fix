@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% import 'include/macros.html' as macros %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="{{ static('css/category.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        {% include 'include/category_nav.html' %}
+        <div class="col-md-offset-2 col-md-8">
+            <div>
+                <ol class="card modal-title breadcrumb">
+                    <li>{{ current_category.up }}</li>
+                    <li>{{ current_category }}</li>
+                </ol>
+            </div>
+            {% if category_books %}
+                <div class="card category-main">
+                    {% for book in category_books %}
+                        {{ macros.bookitem(book,loop.index) }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div style="margin:10px;" class="card">
+                {% if pagination and pagination.paginator.num_pages > 0 %}
+                    <nav style="text-align:center;">
+                        {{ macros.pagination_widget(pagination,'book:category',id=current_category.id) }}
+                    </nav>
+                {% else %}
+                    <p style="text-align:center;padding:10px;">当前类别下没有图书 :)</p>
+                {% endif %}
+            </div>
+        </div>
+        {% include 'include/new_hot_list.html' %}
+    </div>
+{% endblock %}
