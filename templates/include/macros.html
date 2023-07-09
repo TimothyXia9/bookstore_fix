@@ -145,8 +145,7 @@
                 <td>
                     <div class="btn-group-vertical">
                         {% if order.state=='P' %}
-                            <button class="btn btn-sm btn-danger">取消订单</button>
-                            
+                            <a href="{{ url('user:cancel',args=(order.id,)) }}" class="btn btn-sm btn-danger">取消订单</a>
                             <a href="{{ url('user:confirm',args=(order.id,)) }}" class="btn btn-sm btn-warning">确认收货</a>
                         {% else %}
 
