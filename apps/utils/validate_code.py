@@ -3,23 +3,25 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 LOWER_CASE = "abcdefghjkmnpqrstuvwxy"  # 小写字母，去除可能干扰的i/l/o/z
 UPPER_CASE = LOWER_CASE.upper()  # 大写字母
-NUMBER = ''.join(map(str, range(3, 10)))  # 数字
-INIT_CHARS = ''.join((LOWER_CASE, UPPER_CASE, NUMBER))
+NUMBER = "".join(map(str, range(3, 10)))  # 数字
+INIT_CHARS = "".join((LOWER_CASE, UPPER_CASE, NUMBER))
 
 
-def generate_validate_code(size=(120, 30),
-                           chars=INIT_CHARS,
-                           img_type="GIF",
-                           mode="RGB",
-                           bg_color=(255, 255, 255),
-                           fg_color=(0, 0, 255),
-                           font_size=16,
-                           font_type="FreeMono.ttf",
-                           length=4,
-                           draw_lines=True,
-                           n_line=(1, 2),
-                           draw_points=True,
-                           point_chance=2):
+def generate_validate_code(
+    size=(120, 30),
+    chars=INIT_CHARS,
+    img_type="GIF",
+    mode="RGB",
+    bg_color=(255, 255, 255),
+    fg_color=(0, 0, 255),
+    font_size=16,
+    font_type="C:\\Windows\\Fonts\\Arial.ttf",
+    length=4,
+    draw_lines=True,
+    n_line=(1, 2),
+    draw_points=True,
+    point_chance=2,
+):
     """
     @todo: 生成验证码图片
     @param size: 图片的大小，格式（宽，高），默认为(120, 30)
@@ -75,26 +77,37 @@ def generate_validate_code(size=(120, 30),
         绘制验证码字符
         """
         c_chars = get_chars()
-        strs = ' %s ' % ' '.join(c_chars)  # 每个字符前后以空格隔开
+        strs = " %s " % " ".join(c_chars)  # 每个字符前后以空格隔开
         font = ImageFont.truetype(font_type, font_size)
         # font = ImageFont.load_default().font
         # font_width, font_height = font.getsize(strs)
         left, top, right, bottom = font.getbbox(strs)
         font_width, font_height = right - left, bottom - top
-        draw.text(((width - font_width) / 3, (height - font_height) / 3),
-                  strs, font=font, fill=fg_color)
-        return ''.join(c_chars)
+        draw.text(
+            ((width - font_width) / 3, (height - font_height) / 3),
+            strs,
+            font=font,
+            fill=fg_color,
+        )
+        return "".join(c_chars)
 
     if draw_lines:
         create_lines()
     if draw_points:
         create_points()
     strs = create_strs()
-    print('vcode: ', strs)
+    print("vcode: ", strs)
     # 图形扭曲参数
-    params = [1 - float(random.randint(1, 2)) / 100,
-              0, 0, 0, 1 - float(random.randint(1, 10)) / 100, float(random.randint(1, 2)) / 500, 0.001,
-              float(random.randint(1, 2)) / 500]
+    params = [
+        1 - float(random.randint(1, 2)) / 100,
+        0,
+        0,
+        0,
+        1 - float(random.randint(1, 10)) / 100,
+        float(random.randint(1, 2)) / 500,
+        0.001,
+        float(random.randint(1, 2)) / 500,
+    ]
     img = img.transform(size, Image.PERSPECTIVE, params)  # 创建扭曲
     img = img.filter(ImageFilter.EDGE_ENHANCE_MORE)  # 滤镜，边界加强（阈值更大）
     return img, strs.lower()
