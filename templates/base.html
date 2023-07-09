@@ -39,20 +39,10 @@
                                         <span class="glyphicon glyphicon-home"></span> 首页</a>
                                 </li>
                                 {% if request.user.is_authenticated %}
-                                    <li>
-                                        <a>
-                                            <span class="glyphicon glyphicon-map-marker"></span>
-                                            <span id="location"></span>
-                                        </a>
-                                    </li>
+                                    
                                 {% endif %}
                             </ul>
-                            <form class="navbar-form navbar-left">
-                                <div class="form-group has-feedback">
-                                    <input type="text" class="form-control" placeholder="搜索">
-                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                </div>
-                            </form>
+                            
                             <ul class="nav navbar-nav navbar-right">
                                 {% if request.user.is_authenticated %}
                                     <li>
@@ -76,19 +66,10 @@
                                         </a>
                                         <ul class=" dropdown-menu" style="min-width:100%;">
                                             <li>
-                                                <a href="">
+                                                <a href="{{ url('user:settings-get') }}">
                                                     <span class="glyphicon glyphicon-user"></span> 我的主页</a>
                                             </li>
-                                            <li>
-                                                <a href="">
-                                                    <span class="glyphicon glyphicon-bell"></span> 消息
-                                                    <span class="badge pull-right">54</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('user:settings-get') }}">
-                                                    <span class="glyphicon glyphicon-cog"></span> 设置</a>
-                                            </li>
+                                            
                                             <li role="separator" class="divider"></li>
                                             <li>
                                                 <a href="{{ url('auth:logout') }}">

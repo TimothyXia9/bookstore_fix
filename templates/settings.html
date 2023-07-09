@@ -18,8 +18,6 @@
                 <li class="active"><a href="#personal">个人信息</a></li>
                 <li><a href="#addRecipient">收货地址</a></li>
                 <li><a href="#changePassword">修改密码</a></li>
-                <li><a href="#changeEmail">修改邮箱</a></li>
-                <li><a href="#message">邮件通知</a></li>
             </ul>
         </div>
         <div class="col-md-8">
@@ -33,31 +31,14 @@
                             <img src="{{ request.user.avatar.url }}" class="img-thumbnail" height="72" width="72">
                         </td>
                         <td class="col-md-9">
-                            <div>
-                                <p class="text-muted">支持 jpg、png 格式大小 5M 以内的图片</p>
-                                <button type="button" class="btn btn-primary">更改头像</button>
-                            </div>
+                            
                         </td>
                     </tr>
                     <tr class="row">
                         <td class="text-muted">邮箱</td>
                         <td class="text-muted">{{ request.user.email }}</td>
                     </tr>
-                    <tr class="row">
-                        <td class="text-muted">昵称</td>
-                        <td>
-                            <form method="post" action="{{ url('user:settings-post',args=('change-username',)) }}">
-                                {{ csrf_input }}
-                                <div class="input-group">
-                                    <input class="form-control" type="text" value="{{ request.user.username }}"
-                                           name="username">
-                                    <span class="input-group-btn">
-                                        <input class="btn btn-primary" type="submit" value="修改">
-                                    </span>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
+                    
                     <tr class="row">
                         <td class="text-muted">注册时间</td>
                         <td class="text-muted">{{ request.user.date_joined }}</td>
@@ -187,101 +168,7 @@
                     </table>
                 </form>
             </div>
-            <div id="changeEmail" class="card">
-                <form method="post" action="{{ url('user:settings-post',args=('change-email',)) }}">
-                    <table class="table">
-                        <caption><h2>更改邮箱</h2></caption>
-                        <tbody>
-                        <tr class="row">
-                            <td class="col-md-3 text-muted">新邮箱</td>
-                            <td class="col-md-9">
-                                <input name="email" class="form-control" type="password">
-                            </td>
-                        </tr>
-                        <tr class="row">
-                            <td class="text-muted">密码</td>
-                            <td>
-                                <input name="password" class="form-control" type="password">
-                            </td>
-                        </tr>
-                        <tr class="row">
-                            <td></td>
-                            <td>
-                                <input value="修改" class="btn btn-primary pull-right" type="submit">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-
-            <div style="margin-bottom:20px;" id="message" class="card">
-                <form role="form">
-                    <table class="table">
-                        <caption><h2>邮件通知</h2></caption>
-                        <tbody>
-                        <tr class="row">
-                            <td class="col-md-3 text-muted">每周精选</td>
-                            <td class="col-md-9">
-                                <div class="radio">
-                                    <label class="setting-radio">
-                                        <input type="radio" name="weeklySelection" value="yes" checked>开启
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="weeklySelection" value="no">关闭
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="row">
-                            <td class="text-muted">收藏降价</td>
-                            <td>
-                                <div class="radio">
-                                    <label class="setting-radio">
-                                        <input type="radio" name="followNotice" value="yes" checked>开启
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="followNotice" value="no">关闭
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="row">
-                            <td class="text-muted">订单状态</td>
-                            <td>
-                                <div class="radio">
-                                    <label class="setting-radio">
-                                        <input type="radio" name="starNotice" value="yes" checked>开启
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="starNotice" value="no">关闭
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="row">
-                            <td class="text-muted">评价提醒</td>
-                            <td>
-                                <div class="radio">
-                                    <label class="setting-radio">
-                                        <input type="radio" name="evaluateNotice" value="yes" checked>开启
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="evaluateNotice" value="no">关闭
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="row">
-                            <td></td>
-                            <td>
-                                <input type="submit" class="btn btn-primary pull-right" value="确认">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
+            
         </div>
     </div>
     <div class="modal fade" id="new-recipient" tabindex="-1" role="dialog"

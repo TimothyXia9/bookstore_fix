@@ -51,10 +51,10 @@
                     <p>销 售 量：{{ book.sales }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button style="float:left;" class="btn btn-warning" data-dismiss="modal">关闭</button>
+                    
                     <a style="float:left;" href="{{ url('book:detail',args=(book.id,1)) }}" class="btn btn-info">
                         <span class="glyphicon glyphicon-book"></span> 详细</a>
-                    <button class="btn btn-info"><span class="glyphicon glyphicon-star"></span> 收藏</button>
+                    
                     <a href="{{ url('cart:add',args=(book.id,)) }}" class="btn btn-primary"><span
                             class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
                     </a>
