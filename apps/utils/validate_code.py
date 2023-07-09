@@ -15,7 +15,7 @@ def generate_validate_code(
     bg_color=(255, 255, 255),
     fg_color=(0, 0, 255),
     font_size=16,
-    font_type="C:\\Windows\\Fonts\\Arial.ttf",
+    font_type="FreeMono.ttf",
     length=4,
     draw_lines=True,
     n_line=(1, 2),
