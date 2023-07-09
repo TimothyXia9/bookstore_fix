@@ -33,7 +33,7 @@ class SettingsView(LoginRequiredMixin, View):
     def post(self, request, option):
         post = request.POST
         # 设置中的表单
-        recipients = user_models.Recipient.objects.all()
+        recipients = user_models.Recipient.objects.filter(user=request.user)
         recipient_form = user_forms.RecipientForm(post)
         change_username_form = user_forms.ChangeUsernameForm(post)
         change_password_form = user_forms.ChangePasswordForm(post)
