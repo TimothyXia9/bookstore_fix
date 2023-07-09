@@ -56,8 +56,8 @@
                                 {% for re in recipients %}
                                     <li class="{% if re.default %}active{% endif %}">
                                         <a href="#{{ re.id }}" data-toggle="tab">
-                                            {{ re.name }}
-                                        </a>
+                                            {{re.address}}                                     
+                                        </a>                                        
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -114,6 +114,7 @@
                                                 </li>
                                                 <li class="list-group-item">
                                                     <button type="submit" class="btn btn-primary">修改</button>
+                                                    <a href="{{ url('user:delete_address',args=(re.id,)) }}" class="btn  btn-danger">删除</a>
                                                 </li>
                                             </ul>
                                         </form>

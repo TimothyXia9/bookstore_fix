@@ -96,7 +96,7 @@ def generate_validate_code(
     if draw_points:
         create_points()
     strs = create_strs()
-    print("vcode: ", strs)
+    print("vcode: ", strs.lower())
     # 图形扭曲参数
     params = [
         1 - float(random.randint(1, 2)) / 100,

@@ -54,6 +54,9 @@ class Recipient(models.Model):
     def __str__(self):
         return self.user.username
 
+    def delete_addr(self):
+        self.delete()
+
 
 class Order(models.Model):
     from apps.manages.models import Payment
@@ -85,9 +88,6 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user.username
-
-    def delete_recipient(self):
-        self.delete()
 
     @staticmethod
     def create(user, recipient, items, payment_method, payment_amount):

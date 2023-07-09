@@ -149,3 +149,19 @@ def confirm_order(request, order_id):
 def cancel_order(request, order_id):
     request.user.order.get(id=order_id).cancel()
     return HttpResponseRedirect(reverse("user:order"))
+
+
+def delete_address(request, address_id):
+    recipient = user_models.Recipient.objects.get(id=address_id)
+    print("deleting")
+    if recipient.user == request.user:
+        if user_models.Recipient.objects.filter(user=request.user).count() > 1:
+            try:
+                recipient.delete_addr()
+            except:
+                messages.info(request, "删除失败")
+        else:
+            messages.info(request, "不能删除唯一地址")
+
+    # 执行其他删除操作后的逻辑
+    return HttpResponseRedirect(reverse("user:settings-get"))
