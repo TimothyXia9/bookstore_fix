@@ -101,6 +101,7 @@
 
 {# 订单列表 #}
 {% macro order_list(orders) %}
+
     <table style="margin:0;" class="table">
         <thead>
         <tr>
@@ -111,10 +112,10 @@
             <th>下单时间</th>
             <th>完成时间</th>
             <th>状态</th>
-            <th>操作</th>
         </tr>
         </thead>
         <tbody>
+        
         {% for order in orders %}
             <tr>
                 <td>
@@ -149,7 +150,7 @@
                             <a href="{{ url('user:confirm',args=(order.id,)) }}" class="btn btn-sm btn-warning">确认收货</a>
                         {% else %}
 
-                            <button class="btn btn-sm btn-info">评价</button>
+                            
 
                         {% endif %}
 
@@ -157,6 +158,13 @@
                 </td>
             </tr>
         {% endfor %}
+        
         </tbody>
     </table>
+    {% if orders %}
+    {% else %}
+            <div style="margin-top: 20px; text-align: center;">
+                <p>当前没有订单</p>
+            </div>
+        {% endif %}
 {% endmacro %}

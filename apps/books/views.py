@@ -8,9 +8,9 @@ from django.shortcuts import render, redirect
 class DetailView(View):
     def get(self, request, book_id, page):
         book = get_object_or_404(book_models.Book, pk=book_id)
-        pagination = Paginator(
-            book.comments.order_by("-published_time").all(), 10
-        ).page(page)
+        pagination = Paginator(book.comments.order_by("-published_time").all(), 7).page(
+            page
+        )
         comments = pagination.object_list
         return render(
             request,

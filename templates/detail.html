@@ -98,7 +98,7 @@
                         {{ macros.pagination_widget(pagination,'book:detail',id=book.id,fragment='#comments') }}
                     </nav>
                 {% else %}
-                    <p style="text-align:center;">当前图书没有评论，确认收货之后才能评论 :)</p>
+                    <p style="text-align:center;">当前图书没有评论</p>
                 {% endif %}
                 <div id="comment-form">
                     {% if request.user.is_authenticated %}
@@ -110,7 +110,7 @@
                             <input type="submit" class="btn btn-primary" style="float:right"value="提交评论">
                         </form>
                     {% else %}
-                        <p>请登录后发表评论。</p>
+                        <p style="text-align:center;">请登录后发表评论</p>
                     {% endif %}
                 </div>
             </div>

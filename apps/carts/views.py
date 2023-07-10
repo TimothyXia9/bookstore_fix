@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.decorators import login_required
 from . import forms as cart_forms
+from django.contrib import messages
 from apps.books import models as book_models
 from apps.manages import models as manage_models
 
@@ -52,6 +53,7 @@ def cart_remove(request, item_id):
 
 @login_required
 def setaddr(request):
+    messages.info(request, "请先设置收货地址")
     return redirect("users:settings-get")
 
 

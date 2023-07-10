@@ -16,4 +16,5 @@ urlpatterns = [
         views.item_checked,
         name="item-checked",
     ),
+    path("setaddr", views.setaddr, name="setaddr"),
 ]
