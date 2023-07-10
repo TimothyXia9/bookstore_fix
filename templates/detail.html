@@ -35,7 +35,6 @@
                     <a href="{{ url('book:category',args=(book.category.id,1,)) }}">{{ book.category.name }}</a>
                 </p>
                 <hr>
-                <button class="btn btn-info"><span class="glyphicon glyphicon-star"></span> 收藏</button>
                 <a href="{{ url('cart:add',args=(book.id,)) }}" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车</a>
             </div>
             <div class="detail-content card">
@@ -65,13 +64,7 @@
                                 <a href="">
                                     <img style="float:left;" class="img-circle" width="40" height="40"
                                          src="{{ c.user.avatar.url }}"></a>
-                                {# 点赞和评论 #}
-                                <div style="float:right;">
-                                    <a style="color:#b4b4b4;font-size:13px;" href="">
-                                        <i class="glyphicon glyphicon-thumbs-up"></i> 25</a>
-                                    <a style="color:#b4b4b4;font-size:13px;margin-left:10px;" href="">
-                                        <i class="glyphicon glyphicon-comment"></i> 14</a>
-                                </div>
+                                
                                 {# 昵称 #}
                                 <span style="margin-left:10px;font-size:16px;">{{ c.user.username }}</span>
                                 {% for _ in range(c.score) %}
@@ -93,6 +86,7 @@
                         </li>
                     {% endfor %}
                 </ul>
+                
                 {% if pagination and pagination.paginator.num_pages > 0 %}
                     <nav style="text-align:center;">
                         {{ macros.pagination_widget(pagination,'book:detail',id=book.id,fragment='#comments') }}
@@ -100,6 +94,15 @@
                 {% else %}
                     <p style="text-align:center;">当前图书没有评论，确认收货之后才能评论 :)</p>
                 {% endif %}
+                <div id="comment-form">
+                    <h4 style="margin-bottom: 10px;">发表评论</h4>
+                    <form method="POST" action="/book/detail/{{ book.id }}/{{ pagination.number }}/submit_comment">
+                        {{ csrf_input }}
+                        <textarea name="comment" rows="4" cols="50" style="width: 100%; border: 1px solid #ccc; margin-bottom: 10px;" placeholder="输入评论内容"></textarea>
+                        <br>
+                        <input type="submit" class="btn btn-primary" style="float:right"value="提交评论">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
