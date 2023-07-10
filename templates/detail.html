@@ -56,36 +56,42 @@
                 <h3>评论</h3>
                 <hr>
                 <ul style="list-style-type:none;padding:0;">
-                    {% for c in comments %}
-                        <li style="border-bottom:1px solid #ddd;margin-bottom:15px;">
-                            {# 评论者信息 #}
-                            <div>
-                                {# 头像 #}
-                                <a href="">
-                                    <img style="float:left;" class="img-circle" width="40" height="40"
-                                         src="{{ c.user.avatar.url }}"></a>
-                                
-                                {# 昵称 #}
-                                <span style="margin-left:10px;font-size:16px;">{{ c.user.username }}</span>
-                                {% for _ in range(c.score) %}
-                                    <span style="font-size:.8em;color:#ffb000;" class="glyphicon glyphicon-star"></span>
-                                {% endfor %}
-                                {% for _ in range(5-c.score) %}
-                                    <span style="font-size:.8em;color:#d3d3d3;"
-                                          class="glyphicon glyphicon-star-empty"></span>
-                                {% endfor %}
-                                {# 发表时间 #}
-                                <p style="margin-left:50px;font-size:11px;" class="text-muted">
-                                    {{ c.published_time }}
-                                </p>
-                            </div>
-                            {# 评论内容 #}
-                            <div style="padding:15px;">
-                                {{ c.content }}
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+    {% for c in comments %}
+        <li style="border-bottom:1px solid #ddd;margin-bottom:15px; display: flex; align-items: flex-start;">
+            {# 评论者信息 #}
+            <div>
+                {# 头像 #}
+                <a href="">
+                    <img style="float:left;" class="img-circle" width="40" height="40"
+                         src="{{ c.user.avatar.url }}">
+                </a>
+
+                {# 昵称 #}
+                <span style="margin-left:10px;font-size:16px;">{{ c.user.username }}</span>
+                {% for _ in range(c.score) %}
+                    <span style="font-size:.8em;color:#ffb000;" class="glyphicon glyphicon-star"></span>
+                {% endfor %}
+                {% for _ in range(5-c.score) %}
+                    <span style="font-size:.8em;color:#d3d3d3;" class="glyphicon glyphicon-star-empty"></span>
+                {% endfor %}
+                {# 发表时间 #}
+                <p style="margin-left:50px;font-size:11px;" class="text-muted">
+                    {{ c.published_time }}
+                </p>
+            </div>
+            
+            <div style="flex-grow: 1;">
+                {# 评论内容 #}
+                <div style="padding:15px;">
+                    {{ c.content }}
+                </div>
+            </div>
+
+            {# 删除按钮 #}
+            <button class="btn btn-danger btn-sm" onclick="deleteComment({{ c.id }})">删除</button>
+        </li>
+    {% endfor %}
+</ul>
                 
                 {% if pagination and pagination.paginator.num_pages > 0 %}
                     <nav style="text-align:center;">
@@ -95,13 +101,17 @@
                     <p style="text-align:center;">当前图书没有评论，确认收货之后才能评论 :)</p>
                 {% endif %}
                 <div id="comment-form">
-                    <h4 style="margin-bottom: 10px;">发表评论</h4>
-                    <form method="POST" action="/book/detail/{{ book.id }}/{{ pagination.number }}/submit_comment">
-                        {{ csrf_input }}
-                        <textarea name="comment" rows="4" cols="50" style="width: 100%; border: 1px solid #ccc; margin-bottom: 10px;" placeholder="输入评论内容"></textarea>
-                        <br>
-                        <input type="submit" class="btn btn-primary" style="float:right"value="提交评论">
-                    </form>
+                    {% if request.user.is_authenticated %}
+                        <h4 style="margin-bottom: 10px;">发表评论</h4>
+                        <form method="POST" action="/book/detail/{{ book.id }}/{{ pagination.number }}/submit_comment">
+                            {{ csrf_input }}
+                            <textarea name="comment" rows="4" cols="50" style="width: 100%; border: 1px solid #ccc; margin-bottom: 10px;" placeholder="输入评论内容"></textarea>
+                            <br>
+                            <input type="submit" class="btn btn-primary" style="float:right"value="提交评论">
+                        </form>
+                    {% else %}
+                        <p>请登录后发表评论。</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
