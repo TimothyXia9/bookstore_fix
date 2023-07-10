@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib import messages
 from django.views.generic.base import View
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models as user_models
@@ -84,6 +85,9 @@ class SettingsView(LoginRequiredMixin, View):
                     request.user.set_password(new_password)
                     request.user.save()
                     messages.info(request, "密码更改成功")
+                    logout(request)
+
+                return HttpResponseRedirect(reverse("index"))
             else:
                 messages.info(request, "密码更改失败，请重试")
         elif option == "change-email":  # 更改邮箱

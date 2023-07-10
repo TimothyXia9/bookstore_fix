@@ -120,7 +120,9 @@ class LoginView(View):
         return request.session["public_key"]
 
     def decrypt(self, request, password):
-        confirmed_password = base64.b64decode(password)
+        confirmed_password = base64.urlsafe_b64decode(
+            password + "=" * (-len(password) % 4)
+        )
         private_key = request.session["private_key"]
         private_key = RSA.import_key(private_key)
         cipher_rsa2 = PKCS1_v1_5.new(private_key)
