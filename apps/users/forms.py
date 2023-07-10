@@ -2,9 +2,9 @@ from django import forms
 
 
 class ChangePasswordForm(forms.Form):
-    old_password = forms.PasswordInput()
-    new_password = forms.PasswordInput()
-    repeat = forms.PasswordInput()
+    old_password = forms.CharField(widget=forms.PasswordInput)
+    new_password = forms.CharField(widget=forms.PasswordInput)
+    repeat = forms.CharField(widget=forms.PasswordInput)
 
 
 class ChangeEmailForm(forms.Form):

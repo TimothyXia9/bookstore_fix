@@ -74,8 +74,16 @@ class SettingsView(LoginRequiredMixin, View):
                 messages.info(request, "昵称修改失败，请重试")
         elif option == "change-password":  # 更改密码
             if change_password_form.is_valid():
-                request.user.set_password(change_password_form.password.data)
-                messages.info(request, "密码更改成功")
+                if (
+                    change_password_form.cleaned_data["new_password"]
+                    != change_password_form.cleaned_data["repeat"]
+                ):
+                    messages.info(request, "两次输入的密码不一致，请重试")
+                else:
+                    new_password = change_password_form.cleaned_data["new_password"]
+                    request.user.set_password(new_password)
+                    request.user.save()
+                    messages.info(request, "密码更改成功")
             else:
                 messages.info(request, "密码更改失败，请重试")
         elif option == "change-email":  # 更改邮箱
