@@ -13,7 +13,7 @@
                 <ul style="margin-bottom:20px;" id="recipient-name" class="nav nav-pills">
                     {% for re in recipient %}
                         <li style="margin-right:10px;"
-                            class="update_recipient{% if re.default %} active{% endif %}">
+                            class="update_recipient{% if re.default or re.id==first_recipient.id %} active{% endif %}">
                             <a href="#{{ re.id }}" data-toggle="tab">
                                 {{ re.address }}
                             </a>
@@ -22,7 +22,7 @@
                 </ul>
                 <div id="recipient-content" class="tab-content">
                     {% for re in recipient %}
-                        <div class="tab-pane fade in{% if re.default %} active{% endif %}" id="{{ re.id }}">
+                        <div class="tab-pane fade in{% if re.default or re.id==first_recipient.id%} active{% endif %}" id="{{ re.id }}">
                             <ul style="margin-bottom:0;" class="list-group">
                                 <li class="list-group-item"><span class="text-muted">收货人：</span>{{ re.name }}</li>
                                 <li class="list-group-item"><span

@@ -72,6 +72,7 @@ def cart_settlement(request):
         "settlement.html",
         {
             "settlement_form": settlement_form,
+            "first_recipient": recipient.first(),
             "recipient": recipient,
             "cart": cart,
             "payment_method": payment_method,
