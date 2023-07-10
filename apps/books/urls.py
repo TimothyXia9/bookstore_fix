@@ -15,4 +15,9 @@ urlpatterns = [
         views.CommentSubmitView.as_view(),
         name="comment_submit",
     ),
+    path(
+        "detail/<int:book_id>/<int:page>/delete_comment/<int:comment_id>/",
+        views.delete_comment,
+        name="book:delete_comment",
+    ),
 ]

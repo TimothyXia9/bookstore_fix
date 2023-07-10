@@ -88,7 +88,12 @@
             </div>
 
             {# 删除按钮 #}
-            <button class="btn btn-danger btn-sm" onclick="deleteComment({{ c.id }})">删除</button>
+            {% if c.user == request.user %}
+                <form method="POST" action="/book/detail/{{ book.id }}/{{ pagination.number }}/delete_comment/{{ c.id }}/">
+                    {{ csrf_input }}
+                    <input type="submit" class="btn btn-danger btn-sm" style="float:right" value="删除">           
+                </form>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

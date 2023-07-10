@@ -59,3 +59,11 @@ class CommentSubmitView(View):
         comment.save()
         print("saved")
         return redirect("/book/detail/" + str(book_id) + "/" + str(page) + "#comment")
+
+
+def delete_comment(request, book_id, page, comment_id):
+    comment = get_object_or_404(book_models.Comment, id=comment_id)
+    # 进行删除评论的操作
+    if comment.user == request.user:
+        comment.delete()
+    return redirect("book:detail", book_id=book_id, page=page)
