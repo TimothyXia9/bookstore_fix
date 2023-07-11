@@ -4,18 +4,20 @@ from apps.books.models import Book
 
 class Cart(models.Model):
     from apps.users.models import UserProfile
+
     user = models.OneToOneField(
         UserProfile,
         default=1,
-        related_name='cart',
-        on_delete=models.DO_NOTHING,
-        verbose_name='所属用户')
+        related_name="cart",
+        on_delete=models.CASCADE,
+        verbose_name="所属用户",
+    )
 
     def __str__(self):
         return self.user.username
 
     class Meta:
-        verbose_name = '购物车'
+        verbose_name = "购物车"
         verbose_name_plural = verbose_name
 
     def get_items(self):
@@ -81,27 +83,31 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     from apps.users.models import Order
+
     book = models.ForeignKey(
-        Book, related_name='item', on_delete=models.CASCADE, verbose_name='图书')
+        Book, related_name="item", on_delete=models.CASCADE, verbose_name="图书"
+    )
     cart = models.ForeignKey(
         Cart,
         blank=True,
         null=True,
-        related_name='item',
+        related_name="item",
         on_delete=models.CASCADE,
-        verbose_name='所属购物车')
+        verbose_name="所属购物车",
+    )
     order = models.ForeignKey(
         Order,
         blank=True,
         null=True,
-        related_name='item',
+        related_name="item",
         on_delete=models.CASCADE,
-        verbose_name='所属订单')
-    quantity = models.PositiveSmallIntegerField(default=1, verbose_name='数量')
-    checked = models.BooleanField(default=True, verbose_name='选中')
+        verbose_name="所属订单",
+    )
+    quantity = models.PositiveSmallIntegerField(default=1, verbose_name="数量")
+    checked = models.BooleanField(default=True, verbose_name="选中")
 
     class Meta:
-        verbose_name = '购物项'
+        verbose_name = "购物项"
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -121,8 +127,8 @@ class CartItem(models.Model):
         return self.quantity * self.book.discount_price
 
     def change_checked(self, option):
-        if option == 'checked':
+        if option == "checked":
             self.checked = True
-        elif option == 'cancel':
+        elif option == "cancel":
             self.checked = False
         self.save()
