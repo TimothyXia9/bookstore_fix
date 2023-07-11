@@ -14,6 +14,12 @@ class CategoryFirst(models.Model):
     def __str__(self):
         return self.name
 
+    def delete(self, *args, **kwargs):
+        # 删除与该用户相关的外键项
+        self.CategorySecond.all().delete()  # 删除与Comment模型关联的外键项
+
+        super().delete(*args, **kwargs)
+
     @staticmethod
     def get_category_first():
         return CategoryFirst.objects.order_by("name").all()

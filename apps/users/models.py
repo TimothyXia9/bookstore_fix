@@ -32,6 +32,15 @@ class UserProfile(AbstractUser):
     def get_finished_orders(self):
         return self.order.filter(state="F").all()
 
+    def delete(self, *args, **kwargs):
+        # 删除与该用户相关的外键项
+        self.comments.all().delete()  # 删除与Comment模型关联的外键项
+        self.cart.delete()  # 删除与Cart模型关联的外键项
+        self.recipient.all().delete()  # 删除与Recipient模型关联的外键项
+        self.order.all().delete()  # 删除与Order模型关联的外键项
+        # 调用父类的delete方法以删除用户自身
+        super().delete(*args, **kwargs)
+
 
 class Recipient(models.Model):
     user = models.ForeignKey(
